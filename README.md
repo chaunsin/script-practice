@@ -5,5 +5,10 @@
 
 | 目录 | 功能 |
 | --- | --- |
-| shell | shell 联系代码 |
-| makefile| makefile|
+| docker| dockerfile 编写部署练习代码|
+| docker-compose| docker-compose编写部署练习等|
+| github| github ci编写|
+| gitlab| gitlab ci编写|
+| makefile| Makefile 练习代码|
+| nginx| nginx 配置|
+| shell | shell 练习代码 |

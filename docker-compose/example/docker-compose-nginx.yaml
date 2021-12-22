@@ -14,3 +14,4 @@ services:
       - ./nginx/conf.d:/etc/nginx/conf.d:rw # 挂载配置文件
       - ./nginx/html:/usr/share/nginx/html:ro # 挂载html
       - ./nginx/log:/var/log/nginx/:rw  # 挂载日志
+#    command: bash -c "echo hello docker-compose"
