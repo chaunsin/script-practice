@@ -164,3 +164,4 @@ local.properties
 
 docker-compose/example/nginx
 go.sum
+.DS_Store
