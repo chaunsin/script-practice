@@ -1,12 +1,15 @@
 #!/usr/bin/env bash
 
 # 获取命令行参数,注意参数之间以空格进行分割
-INPUT1=$1
-INPUT2=$2
-INPUT3=$3
-
+HELP=$1
+VERSION=""
+NAME="shell"
+# 相当于设置了默认值
+: ${HELP:="please use args"}
+: ${VERSION:=v1.0}
+: ${NAME:="test"}
+echo ${VERSION},${NAME},${HELP}
 echo "当前运行文件名称:$0"
-echo "$INPUT1""${INPUT2}""$INPUT3"
 
 # ---------------- $# ---------------
 # 获取命令行的参数个数
@@ -45,6 +48,7 @@ echo "$?"
 # cmd:/bin/sh cmd.sh 1 2 3
 # OUTPUT:
 # 当前运行文件名称:cmd.sh
+# v1.0,shell,1
 # 123
 # 3
 # 1 2 3

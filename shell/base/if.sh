@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+# 判断字符串是否为空
+empty=""
+a=$([ -z $empty ])
+echo $a
+
 function isFile() {
   file=./var.sh
   if [ -f $file ]; then
@@ -13,7 +18,7 @@ function isFile() {
 function system() {
   SYSTEM=$(uname -s)
 
-  # 1. 字符串比较 = 和 == 是等价的
+  # 1. 字符串比较 = 和 == 是等价的推荐使用==可读性更高
   if [ $SYSTEM = "Linux" ]; then
     echo "linux"
   elif [ $SYSTEM == "FreeBSD" ]; then

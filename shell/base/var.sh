@@ -6,9 +6,14 @@ echo "$a"
 a="hello sh"
 echo "${a}"
 
+# 执行go语言的命令行,查看语言当前版本并把执行的结果赋值给a
+a=$(go version)
+echo $a
+
 # output:
 # hello shell
 # hello sh
+# go version go1.17.3 darwin/amd64
 
 ################# 变量修饰符 ################
 # readonly 变量只能进行读取不能进行修改
@@ -39,6 +44,7 @@ echo "$d"
 
 ################# 变量类型 ###################
 # 1.局部变量
+local e="局部变量"
 
 # 2.环境变量
 
