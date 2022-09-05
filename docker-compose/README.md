@@ -52,6 +52,10 @@ docker inspect --format='{{.LogPath}}' CONTAINER_ID
 cat /dev/null > xxx-json.log
 ```
 
+如果需要清理所有的服务日志则可以使用一下脚本
+
+[>>>脚本<<<](../docker/clear-docker-log.sh)
+
 # 总结
 
 # 参考
