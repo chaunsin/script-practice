@@ -30,17 +30,7 @@ ps:注意命令的先后顺序,不然会出现命令无法执行的情况,会打
 
 ### 5.如何控制或删除容器打印的日志
 
-滚动日志可以配置如下：
-
-```yaml
-logging:
-  driver: "json-file"
-  options:
-    # 日志文件大小
-    max-size: "200m"
-    # 最大日志文件数量
-    max-file: "3"
-```
+> 方案一
 
 删除日志文件
 
@@ -52,9 +42,61 @@ docker inspect --format='{{.LogPath}}' CONTAINER_ID
 cat /dev/null > xxx-json.log
 ```
 
-如果需要清理所有的服务日志则可以使用一下脚本
+如果需要清理所有的服务日志则可以使用以下脚本
 
 [>>>脚本<<<](../docker/clear-docker-log.sh)
+
+如果执行失败无权限则执行以下操作然后在执行脚本
+
+```shell
+chmod +x clear-docker-log.sh
+./clear-docker-log.sh
+```
+
+> 方案二
+
+如果是docker-compose启动方式,可以配置滚动日志配置：
+
+```yaml
+logging:
+  driver: "json-file"
+  options:
+    # 日志文件大小
+    max-size: "200m"
+    # 最大日志文件数量
+    max-file: "3"
+```
+
+ps:配置滚动日志,driver类型只能是json-file类型的其他不生效
+
+> 方案三
+
+配置docker daemon.json,此方案一劳永逸适用于全局对象。 先查看本地有没有此文件，没有则创建该文件
+
+```shell
+vim /etc/docker/daemon.json
+```
+
+然后在此文件中添加如下配置,和方案二雷同。
+
+```json
+{
+  "log-driver": "json-file",
+  "log-opts": {
+    "max-size": "100m",
+    "max-file": "3"
+  }
+}
+```
+
+修改添加完之后需要重启docker守护进程
+
+```shell
+systemctl daemon-reload
+systemctl restart docker
+```
+
+ps:对于设置之前旧的服务则不生效,需要删除旧的服务才能生效
 
 # 总结
 

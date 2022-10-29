@@ -1,6 +1,6 @@
 version: '3.2'
 services:
-  ngnix:
+  nginx:
     image: nginx
     container_name: jcx_nginx
     restart: always
