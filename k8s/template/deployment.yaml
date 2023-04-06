@@ -1,0 +1,13 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: jcx-test
+  namespace: public-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jcx-test
+  template:
+    metadata:
+      name: jcx-test

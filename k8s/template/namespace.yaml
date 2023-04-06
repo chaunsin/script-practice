@@ -1,0 +1,5 @@
+# 用于创建namespace 对应创建命令 kubectl create namespace dev
+apiVersion: v1
+kind: NameSpace
+metadata:
+  name: dev
