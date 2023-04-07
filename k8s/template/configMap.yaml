@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: test.config
+  labels:
+    app: test.config
+# 标识configMap不能变更也无法改变data或者binaryData
+immutable: true
+# data 内容为utf-8编码 如果有特殊编码则使用binaryData
+data:
+  mode: "release"
+  name: "chaunsin"
+  nginx.conf: |
+    server {
+     server_name www.nginx.com;
+     listen 80;
+     root /home/nginx/www/
+    }
+
+
+# binaryData:

@@ -8,6 +8,9 @@ spec:
   selector:
     matchLabels:
       app: jcx-test
+  strategy:
+    type: RollingUpdate # RollingUpdate(默认) Recreate:在创建新 Pod 之前，所有现有的 Pod 会被杀死
+  # 此处template相当于嵌入得pod模板,因此省略template或kind字段值
   template:
     metadata:
       name: jcx-test

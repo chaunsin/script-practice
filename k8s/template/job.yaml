@@ -1,0 +1,25 @@
+#
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: pi
+spec:
+  # 自动清理job包括Complete或Failed状态. 当job pi任务执行完之后30s之后自动删除对象释放资源.如果设置为0则执行完立马释放.如果没设置则不会删除
+  ttlSecondsAfterFinished: 30
+  template:
+    spec:
+      containers:
+        - name: pi
+          image: perl:5.34.0
+          command: [ "perl",  "-Mbignum=bpi", "-wle", "print bpi(2000)" ]
+      # 重启策略 Never:从不重启 OnFailure:错误重启
+      restartPolicy: Never
+  # 任务执行失败之前的重试次数.失效回退的限制值默认为6, 与Job相关的失效的Pod会被Job控制器重建,回退重试时间将会按指数增长(从 10 秒、20 秒到 40 秒)最多至6分钟
+  backoffLimit: 6
+  # 当成功的 Pod 个数达到 .spec.completions 时，Job 被视为完成
+  completions: 1
+  # 任务并行数不设置默认为1,如果设置为0则Job相当于启动之后便被暂停，直到此值被增加.
+  parallelism: 1
+  # NonIndexed(默认值): 当成功完成的Pod个数达到 .spec.completions 所设值时认为Job已经完成
+  # Indexed: 当使用.spec.completionMode="Indexed"时，每个Pod都会获得一个不同的索引值，介于0和.spec.completions-1之间
+  completionMode: "NonIndexed"

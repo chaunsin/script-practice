@@ -1,0 +1,35 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: hello
+spec:
+  # https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/cron-jobs/#cron-schedule-syntax
+  # 语法规则
+  # ┌───────────── 分钟 (0 - 59)
+  # │ ┌───────────── 小时 (0 - 23)
+  # │ │ ┌───────────── 月的某天 (1 - 31)
+  # │ │ │ ┌───────────── 月份 (1 - 12)
+  # │ │ │ │ ┌───────────── 周的某天 (0 - 6)（周日到周一；在某些系统上，7 也是星期日）
+  # │ │ │ │ │                          或者是 sun，mon，tue，web，thu，fri，sat
+  # │ │ │ │ │
+  # │ │ │ │ │
+  # * * * * *
+  schedule: "* * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: hello
+              image: busybox:1.28
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - date; echo Hello from the Kubernetes cluster
+          restartPolicy: OnFailure
+  # 任务并行策略配置
+  # Allow(默认): 允许并发任务执行
+  # Forbid: 不允许并发执行任务
+  # Replace: 如果新任务的执行时间到了而老任务没有执行完,会用新任务替换当前正在运行的任务
+  concurrencyPolicy: Allow

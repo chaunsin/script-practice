@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: jcx-pod
+spec:
+  containers:
+    - name: busybox
+      image: busybox
+      command: [ "/bin/sh","-c","cat /etc/config/test.config" ]
+      volumeMounts:
+        - name: config-volume # 引用volumes中定义的挂载对象
+          mountPath: /etc/config # 挂载在pod容器内的路径位置
+      env:
+        - name: JCX_MODE # 定义得环境变量值在pod容器中
+          valueFrom: # 环境变量值获取
+            configMapKeyRef: # 从configMap中获取值
+              name: test.config # 定义得configMap名称
+              key: mode # 获取configMap中定义的配置变量key值名
+        - name: JCX_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: test.config
+              key: name
+  volumes:
+    - name: config-volume # 定义得卷名称
+      configMap:
+        name: test.config # 对应ConfigMap中的名称
+  restartPolicy: Never
+  # 表面Pod运行在哪个操作系统之上,目前只有linux和windows这种两未来会扩充
+  os:
+    name: linux

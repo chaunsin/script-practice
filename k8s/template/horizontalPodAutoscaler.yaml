@@ -1,0 +1,13 @@
+# 使用ReplicaSet作为自动扩容(HPA)
+# 对应命令: kubectl autoscale rs frontend --max=10 --min=3 --cpu-percent=50
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: frontend-scaler
+spec:
+  scaleTargetRef:
+    kind: ReplicaSet
+    name: frontend
+  minReplicas: 3
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 50

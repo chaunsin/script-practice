@@ -1,0 +1,26 @@
+# nfs类型的StorageClass
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: example-nfs
+# 制备器类型
+provisioner: example.com/external-nfs
+# 参数最多可以定义512个参数,参数总长度不能超过256KB包括键和值
+parameters:
+  server: nfs-server.example.com
+  path: /share
+  readOnly: "false"
+# 卷资源回收模式 Retain:保留 Recycle:回收(弃用) Delete:删除
+reclaimPolicy: Delete
+
+---
+# local类型的StorageClass
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: local-storage
+provisioner: kubernetes.io/no-provisioner
+# 卷绑定模式,未设置时默认为Immediate
+volumeBindingMode: WaitForFirstConsumer
+# 卷资源回收模式 Retain:保留 Recycle:回收(弃用) Delete:删除
+reclaimPolicy: Delete
