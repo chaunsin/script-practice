@@ -1,4 +1,5 @@
 # k8s
+cluster -多个-> node -多个-> namespace -多组-> pod
 
 # pod
 
