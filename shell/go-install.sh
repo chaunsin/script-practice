@@ -32,3 +32,13 @@ function main() {
 }
 
 main
+
+# 步骤一: tar -C /usr/local -xzf go1.14.src.tar.gz
+# 步骤二:
+# export GOROOT=/usr/local/go
+# export PATH=$PATH:$GOROOT/bin
+# export GOPROXY=https://goproxy.cn,direct
+# export GO111MODULE=off
+# export GOPATH=
+# 步骤三:
+# source /etc/profie

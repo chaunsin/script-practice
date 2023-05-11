@@ -98,6 +98,14 @@ systemctl restart docker
 
 ps:对于设置之前旧的服务则不生效,需要删除旧的服务才能生效
 
+### 6. 如何用docker-compose中配置/etc/hosts
+
+```yaml
+    extra_hosts:
+      - "example.com:127.0.0.1"
+      - "example:127.0.0.1"
+```
+
 # 总结
 
 # 参考
