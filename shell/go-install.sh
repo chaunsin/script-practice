@@ -4,7 +4,7 @@
 VERSION="1.15.15"
 
 # 系统 darwin windows
-OS=$(uname -s)
+OS=$(uname -s | tr '[:upper:]' '[:lower:]')
 
 # 获取芯片架构 比如amd64
 architecture=""
@@ -15,26 +15,16 @@ case $(uname -m) in
     arm)    dpkg --print-architecture | grep -q "arm64" && architecture="arm64" || architecture="arm" ;;
 esac
 
-# 转换成小写
-function lower()
-{
-    LOWER_CASE=$(echo ${1} | tr '[A-Z]' '[a-z]')
-    echo ${LOWER_CASE}
-}
+# 下载地址
+URL="https://golang.google.cn/dl/go${VERSION}.${OS}-${architecture}.tar.gz"
+echo "$URL"
+curl -LO "$URL"
+#  curl -LO https://dl.google.com/go/go1.15.15.darwin-amd64.tar.gz
 
-function main() {
-  addr=$(https://golang.google.cn/dl/go${VERSION}.$(lower "$OS")-${architecture}.tar.gz)
-  echo "$addr"
-#  curl -o $(addr)
-#  curl $addr
-#  curl https://golang.google.cn/dl/go1.15.15.darwin-amd64.tar.gz
-  curl -o https://dl.google.com/go/go1.15.15.darwin-amd64.tar.gz
-}
-
-main
 
 # 步骤一: tar -C /usr/local -xzf go1.14.src.tar.gz
 # 步骤二:
+# vim /etc/profie
 # export GOROOT=/usr/local/go
 # export PATH=$PATH:$GOROOT/bin
 # export GOPROXY=https://goproxy.cn,direct
