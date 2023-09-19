@@ -22,11 +22,11 @@ str=""
 def="default"
 set="value"
 c=$([ -z $str ] && echo $def || echo $set)
-echo $c
+echo "$c"
 
 # 简短模式
 d=${1:-"false"}
-echo $d
+echo "$d"
 
 echo $((3 > 2 ? 1 : 0))
 
@@ -34,12 +34,12 @@ echo $((3 > 2 ? 1 : 0))
 one=""
 #one="one"
 e=${one:-"two"}
-echo $e
+echo "$e"
 
 # ${1} 相当于取第一个参数值
 function IF() {
   value=${1:-"hello"}
-  echo $value
+  echo "$value"
 }
 
 IF
